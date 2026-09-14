@@ -1,0 +1,40 @@
+{% extends 'contatos/base.html' %}
+
+{% block title %}Contatos - Agenda Telefônica{% endblock %}
+
+{% block content %}
+<div class="actions">
+    <a class="button" href="{% url 'contato_create' %}">+ Novo contato</a>
+    <a class="button secondary" href="{% url 'contato_list' %}">Todos</a>
+    <a class="button secondary" href="?categoria=amigos">Amigos</a>
+    <a class="button secondary" href="?categoria=familia">Família</a>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Telefone</th>
+            <th>Categoria</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for contato in contatos %}
+        <tr>
+            <td><a href="{% url 'contato_detail' contato.pk %}">{{ contato.nome }}</a></td>
+            <td>{{ contato.telefone }}</td>
+            <td><span class="badge {{ contato.categoria }}">{{ contato.get_categoria_display }}</span></td>
+            <td>
+                <a class="button" href="{% url 'contato_update' contato.pk %}">Editar</a>
+                <a class="button danger" href="{% url 'contato_delete' contato.pk %}">Excluir</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">Nenhum contato cadastrado.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

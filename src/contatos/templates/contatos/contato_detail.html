@@ -1,0 +1,15 @@
+{% extends 'contatos/base.html' %}
+
+{% block title %}{{ contato.nome }} - Agenda Telefônica{% endblock %}
+
+{% block content %}
+<h2>{{ contato.nome }}</h2>
+<p><strong>Telefone:</strong> {{ contato.telefone }}</p>
+<p><strong>Categoria:</strong> <span class="badge {{ contato.categoria }}">{{ contato.get_categoria_display }}</span></p>
+
+<div class="actions">
+    <a class="button" href="{% url 'contato_update' contato.pk %}">Editar</a>
+    <a class="button danger" href="{% url 'contato_delete' contato.pk %}">Excluir</a>
+    <a class="button secondary" href="{% url 'contato_list' %}">Voltar</a>
+</div>
+{% endblock %}

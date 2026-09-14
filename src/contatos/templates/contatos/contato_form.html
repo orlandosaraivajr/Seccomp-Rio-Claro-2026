@@ -1,0 +1,16 @@
+{% extends 'contatos/base.html' %}
+
+{% block title %}
+    {% if object %}Editar Contato{% else %}Novo Contato{% endif %} - Agenda Telefônica
+{% endblock %}
+
+{% block content %}
+<h2>{% if object %}Editar Contato{% else %}Novo Contato{% endif %}</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Salvar</button>
+    <a class="button secondary" href="{% url 'contato_list' %}">Cancelar</a>
+</form>
+{% endblock %}

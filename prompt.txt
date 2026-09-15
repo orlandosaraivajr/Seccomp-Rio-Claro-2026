@@ -1,0 +1,7 @@
+Crie uma pasta src
+Na pasta src, crie um projeto Django de uma agenda telefônica
+Crie os campos : Nome, telefone, e uma combobox com as opções amigos e família.
+
+Crie o arquivo requirements.txt do projeto.
+
+Crie rotas para as operações básicas de CRUD.

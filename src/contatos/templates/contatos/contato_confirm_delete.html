@@ -1,14 +1,26 @@
 {% extends 'contatos/base.html' %}
 
-{% block title %}Excluir Contato - Agenda Telefônica{% endblock %}
+{% block title %}Excluir Contato - Agenda{% endblock %}
 
 {% block content %}
-<h2>Excluir Contato</h2>
-<p>Tem certeza que deseja excluir <strong>{{ contato.nome }}</strong>?</p>
-
-<form method="post">
-    {% csrf_token %}
-    <button type="submit" class="danger">Sim, excluir</button>
-    <a class="button secondary" href="{% url 'contato_list' %}">Cancelar</a>
-</form>
+<div class="card">
+    <div class="card-header">
+        <span class="material-icons" style="color:#d93025;">warning</span>
+        <h2>Excluir contato</h2>
+    </div>
+    <div class="card-body">
+        <p style="margin:0; font-size:14px; color:var(--text);">
+            Tem certeza que deseja excluir <strong>{{ contato.nome }}</strong>? Esta ação não pode ser desfeita.
+        </p>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <div class="card-footer">
+            <a class="btn btn-text" href="{% url 'contato_list' %}">Cancelar</a>
+            <button type="submit" class="btn btn-danger">
+                <span class="material-icons" style="font-size:18px;">delete</span> Excluir
+            </button>
+        </div>
+    </form>
+</div>
 {% endblock %}

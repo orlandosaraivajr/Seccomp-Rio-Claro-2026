@@ -1,16 +1,39 @@
 {% extends 'contatos/base.html' %}
 
 {% block title %}
-    {% if object %}Editar Contato{% else %}Novo Contato{% endif %} - Agenda Telefônica
+    {% if object %}Editar Contato{% else %}Novo Contato{% endif %} - Agenda
 {% endblock %}
 
 {% block content %}
-<h2>{% if object %}Editar Contato{% else %}Novo Contato{% endif %}</h2>
+<div class="card">
+    <div class="card-header">
+        <span class="material-icons">{% if object %}edit{% else %}person_add{% endif %}</span>
+        <h2>{% if object %}Editar Contato{% else %}Novo Contato{% endif %}</h2>
+    </div>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Salvar</button>
-    <a class="button secondary" href="{% url 'contato_list' %}">Cancelar</a>
-</form>
+    <form method="post">
+        {% csrf_token %}
+        <div class="card-body">
+            <div class="field">
+                <label><span class="material-icons" style="font-size:16px;">person</span> Nome</label>
+                {{ form.nome }}
+                {{ form.nome.errors }}
+            </div>
+            <div class="field">
+                <label><span class="material-icons" style="font-size:16px;">call</span> Telefone</label>
+                {{ form.telefone }}
+                {{ form.telefone.errors }}
+            </div>
+            <div class="field" style="margin-bottom:0;">
+                <label><span class="material-icons" style="font-size:16px;">group</span> Categoria</label>
+                {{ form.categoria }}
+                {{ form.categoria.errors }}
+            </div>
+        </div>
+        <div class="card-footer">
+            <a class="btn btn-text" href="{% url 'contato_list' %}">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Salvar</button>
+        </div>
+    </form>
+</div>
 {% endblock %}

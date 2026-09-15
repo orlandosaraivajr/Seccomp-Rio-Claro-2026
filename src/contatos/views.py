@@ -16,7 +16,19 @@ class ContatoListView(ListView):
         categoria = self.request.GET.get('categoria')
         if categoria:
             queryset = queryset.filter(categoria=categoria)
+        busca = self.request.GET.get('q')
+        if busca:
+            queryset = queryset.filter(nome__icontains=busca)
         return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categoria_atual'] = self.request.GET.get('categoria', '')
+        context['busca_atual'] = self.request.GET.get('q', '')
+        context['total_contatos'] = Contato.objects.count()
+        context['total_amigos'] = Contato.objects.filter(categoria=Contato.Categoria.AMIGOS).count()
+        context['total_familia'] = Contato.objects.filter(categoria=Contato.Categoria.FAMILIA).count()
+        return context
 
 
 class ContatoDetailView(DetailView):

@@ -1,15 +1,42 @@
 {% extends 'contatos/base.html' %}
 
-{% block title %}{{ contato.nome }} - Agenda Telefônica{% endblock %}
+{% block title %}{{ contato.nome }} - Agenda{% endblock %}
 
 {% block content %}
-<h2>{{ contato.nome }}</h2>
-<p><strong>Telefone:</strong> {{ contato.telefone }}</p>
-<p><strong>Categoria:</strong> <span class="badge {{ contato.categoria }}">{{ contato.get_categoria_display }}</span></p>
+<div class="card">
+    <div style="height:8px; background:{% if contato.categoria == 'amigos' %}var(--blue){% else %}var(--green){% endif %};"></div>
 
-<div class="actions">
-    <a class="button" href="{% url 'contato_update' contato.pk %}">Editar</a>
-    <a class="button danger" href="{% url 'contato_delete' contato.pk %}">Excluir</a>
-    <a class="button secondary" href="{% url 'contato_list' %}">Voltar</a>
+    <div class="card-body">
+        <div style="display:flex; align-items:center; gap:16px; margin-bottom:24px;">
+            <div style="width:56px; height:56px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+                        color:#fff; font-weight:500; font-size:22px;
+                        background:{% if contato.categoria == 'amigos' %}var(--blue){% else %}var(--green){% endif %};">
+                {{ contato.nome|first|upper }}
+            </div>
+            <div>
+                <h2 style="margin:0 0 4px; font-size:20px; font-weight:500;">{{ contato.nome }}</h2>
+                <span style="font-size:12px; font-weight:500; padding:4px 10px; border-radius:12px;
+                             color:{% if contato.categoria == 'amigos' %}var(--blue-dark){% else %}#137333{% endif %};
+                             background:{% if contato.categoria == 'amigos' %}var(--blue-light){% else %}var(--green-light){% endif %};">
+                    {{ contato.get_categoria_display }}
+                </span>
+            </div>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:16px; color:var(--text); font-size:14px;">
+            <span class="material-icons" style="color:var(--text-secondary);">call</span>
+            {{ contato.telefone }}
+        </div>
+    </div>
+
+    <div class="card-footer">
+        <a class="btn btn-text" href="{% url 'contato_list' %}">Voltar</a>
+        <a class="btn btn-danger" href="{% url 'contato_delete' contato.pk %}">
+            <span class="material-icons" style="font-size:18px;">delete</span> Excluir
+        </a>
+        <a class="btn btn-primary" href="{% url 'contato_update' contato.pk %}">
+            <span class="material-icons" style="font-size:18px;">edit</span> Editar
+        </a>
+    </div>
 </div>
 {% endblock %}

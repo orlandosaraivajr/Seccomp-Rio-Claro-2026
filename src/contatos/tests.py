@@ -39,7 +39,7 @@ class ContatoListViewTests(TestCase):
         Contato.objects.all().delete()
         response = self.client.get(reverse('contato_list'))
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Nenhum contato cadastrado')
+        self.assertContains(response, 'Nenhum contato encontrado')
 
 
 class ContatoDetailViewTests(TestCase):
